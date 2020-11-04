@@ -42,11 +42,11 @@ type Header struct {
 
 // This is our multiline regex for the SMB blocks.
 // We can possibly get rid of the named regex groups.
-var re = regexp.MustCompile(`(?m)(?:(?:(?P<SMBID>\d+)\) \\\\(?P<Server>[A-Za-z1-9-.]+)(?P<Share>.+)\nSMBs:\s+(?P<SMB>\d+) Oplocks breaks:\s+(?P<OpLocks>\d+)\nReads:\s+(?P<Reads>\d+) Bytes:\s+(?P<ReadsBytes>\d+)\nWrites:\s+(?P<Writes>\d+) Bytes:\s+(?P<WritesBytes>\d+)\nFlushes:\s+(?P<Flushes>\d+)\nLocks:\s+(?P<Locks>\d+) HardLinks:\s+(?P<Hardlinks>\d+) Symlinks:\s+(?P<Symlinks>\d+)\nOpens:\s+(?P<Opens>\d+) Closes:\s+(?P<Closes>\d+) Deletes:\s+(?P<Deletes>\d+)\nPosix Opens:\s+(?P<PosixOpens>\d+) Posix Mkdirs:\s+(?P<PosixMkdirs>\d+)\nMkdirs:\s+(?P<Mkdirs>\d+) Rmdirs:\s+(?P<Rmdirs>\d+)\nRenames:\s+(?P<Renames>\d+) T2 Renames\s+(?P<T2Renames>\d+)\nFindFirst:\s+(?P<FindFirst>\d+) FNext\s+(?P<FNext>\d+) FClose\s+(?P<FClose>\d+)|(?P<SMB3ID>\d+)\) \\\\(?P<SMB3Server>[A-Za-z1-9-.]+)(?P<SMB3Share>.+)\nSMBs:\s+(?P<SMB3>\d+)\nNegotiates:\s+(?P<NegotiatesSent>\d+) sent\s+(?P<NegotiatesFailed>\d+) failed\nSessionSetups:\s+(?P<SessionSetupsSent>\d+) sent\s+(?P<SessionSetupsFailed>\d+) failed\nLogoffs:\s+(?P<LogoffsSent>\d+) sent\s+(?P<LogoffsFailed>\d+) failed\nTreeConnects:\s+(?P<TreeConnectsSent>\d+) sent\s+(?P<TreeConnectsFailed>\d+) failed\nTreeDisconnects:\s+(?P<TreeDisconnectsSent>\d+) sent\s+(?P<TreeDisconnectsFailed>\d+) failed\nCreates:\s+(?P<CreatesSent>\d+) sent\s+(?P<CreatesFailed>\d+) failed\nCloses:\s+(?P<ClosesSent>\d+) sent\s+(?P<ClosesFailed>\d+) failed\nFlushes:\s+(?P<FlushesSent>\d+) sent\s+(?P<FlushesFailed>\d+) failed\nReads:\s+(?P<ReadsSent>\d+) sent\s+(?P<ReadsFailed>\d+) failed\nWrites:\s+(?P<WritesSent>\d+) sent\s+(?P<WritesFailed>\d+) failed\nLocks:\s+(?P<LocksSent>\d+) sent\s+(?P<LocksFailed>\d+) failed\nIOCTLs:\s+(?P<IOCTLsSent>\d+) sent\s+(?P<IOCTLsFailed>\d+) failed\nCancels:\s+(?P<CancelsSent>\d+) sent\s+(?P<CancelsFailed>\d+) failed\nEchos:\s+(?P<EchosSent>\d+) sent\s+(?P<EchosFailed>\d+) failed\nQueryDirectories:\s+(?P<QueryDirectoriesSent>\d+) sent\s+(?P<QueryDirectoriesFailed>\d+) failed\nChangeNotifies:\s+(?P<ChangeNotifiesSent>\d+) sent\s+(?P<ChangeNotifiesFailed>\d+) failed\nQueryInfos:\s+(?P<QueryInfosSent>\d+) sent\s+(?P<QueryInfosFailed>\d+) failed\nSetInfos:\s+(?P<SetInfosSent>\d+) sent\s+(?P<SetInfosFailed>\d+) failed\nOplockBreaks:\s+(?P<OpLockBreaksSent>\d+) sent\s+(?P<OpLockBreaksFailed>\d+) failed)+)`)
+var re = regexp.MustCompile(`((?m)(?:(?:(?P<SMBID>\d+)\) \\\\(?P<Server>[A-Za-z1-9-.]+)(?P<Share>.+)\nSMBs:\s+(?P<SMB>\d+) Oplocks breaks:\s+(?P<OpLocks>\d+)\nReads:\s+(?P<Reads>\d+) Bytes:\s+(?P<ReadsBytes>\d+)\nWrites:\s+(?P<Writes>\d+) Bytes:\s+(?P<WritesBytes>\d+)\nFlushes:\s+(?P<Flushes>\d+)\nLocks:\s+(?P<Locks>\d+) HardLinks:\s+(?P<Hardlinks>\d+) Symlinks:\s+(?P<Symlinks>\d+)\nOpens:\s+(?P<Opens>\d+) Closes:\s+(?P<Closes>\d+) Deletes:\s+(?P<Deletes>\d+)\nPosix Opens:\s+(?P<PosixOpens>\d+) Posix Mkdirs:\s+(?P<PosixMkdirs>\d+)\nMkdirs:\s+(?P<Mkdirs>\d+) Rmdirs:\s+(?P<Rmdirs>\d+)\nRenames:\s+(?P<Renames>\d+) T2 Renames\s+(?P<T2Renames>\d+)\nFindFirst:\s+(?P<FindFirst>\d+) FNext\s+(?P<FNext>\d+) FClose\s+(?P<FClose>\d+)|(?P<SMB3ID>\d+)\) \\\\(?P<SMB3Server>[A-Za-z1-9-.]+)(?P<SMB3Share>.+)\nSMBs:\s+(?P<SMB3>\d+)\nBytes read:\s+(?P<BytesRead>\d+)\s+Bytes written:\s+(?P<BytesWritten>\d+)\nOpen files:\s+(?P<OpenFilesTotal>\d+) total \(local\),\s+(?P<OpenFiles>\d+) open on server\nTreeConnects:\s+(?P<TreeConnectsTotal>\d+) total\s+(?P<TreeConnectsFailed>\d+) failed\nTreeDisconnects:\s+(?P<TreeDisconnectsTotal>\d+) total\s+(?P<TreeDisconnectsFailed>\d+) failed\nCreates:\s+(?P<CreatesTotal>\d+) total\s+(?P<CreatesFailed>\d+) failed\nCloses:\s+(?P<ClosesTotal>\d+) total\s+(?P<ClosesFailed>\d+) failed\nFlushes:\s+(?P<FlushesTotal>\d+) total\s+(?P<FlushesFailed>\d+) failed\nReads:\s+(?P<ReadsTotal>\d+) total\s+(?P<ReadsFailed>\d+) failed\nWrites:\s+(?P<WritesTotal>\d+) total\s+(?P<WritesFailed>\d+) failed\nLocks:\s+(?P<LocksTotal>\d+) total\s+(?P<LocksFailed>\d+) failed\nIOCTLs:\s+(?P<IOCTLsTotal>\d+) total\s+(?P<IOCTLsFailed>\d+) failed\nQueryDirectories:\s+(?P<QueryDirectoriesTotal>\d+) total\s+(?P<QueryDirectoriesFailed>\d+) failed\nChangeNotifies:\s+(?P<ChangeNotifiesTotal>\d+) total\s+(?P<ChangeNotifiesFailed>\d+) failed\nQueryInfos:\s+(?P<QueryInfosTotal>\d+) total\s+(?P<QueryInfosFailed>\d+) failed\nSetInfos:\s+(?P<SetInfosTotal>\d+) total\s+(?P<SetInfosFailed>\d+) failed\nOplockBreaks:\s+(?P<OpLockBreaksSent>\d+) sent\s+(?P<OpLockBreaksFailed>\d+) failed)+))+`)
 
 // NewClientStats opens the cifs stats file and returns our parsed CIFS client statistics.
 func NewClientStats() (*ClientStats, error) {
-	f, err := os.Open("/proc/fs/cifs/Stats")
+	f, err := os.Open("examples/example1.txt")
 	if err != nil {
 		return nil, err
 	}
@@ -85,18 +85,19 @@ func (stats *ClientStats) parseHeader(line string) {
 // SMB3 blocks start at match position 27
 func (stats *ClientStats) parseSMBBlocks(file string) {
 	matches := re.FindAllStringSubmatch(file, -1)
+
 	for _, match := range matches {
 		// We need to match the right SMB block
-		// If match[1] == "" then we have a SMB3 version Block
-		if match[1] == "" {
+		// If match[2] == "" then we have a SMB3 version Block
+		if match[2] == "" {
 			block := &Block{
 				// These are hard offsets right now for the matched SMB3 block
-				Server:  match[27],
-				Share:   match[28],
+				Server:  match[28],
+				Share:   match[29],
 				Metrics: []uint64{},
 			}
 			// match[29] is where the metrics start for the matched SMB3 block
-			for i := 29; i < len(match); i++ {
+			for i := 30; i < len(match); i++ {
 				m, err := strconv.ParseUint(match[i], 10, 64)
 				if err != nil {
 					break
