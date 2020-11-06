@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"regexp"
 	"strconv"
@@ -84,6 +85,7 @@ func (stats *ClientStats) parseHeader(line string) {
 // SMB1/2 blocks start at match position 2
 // SMB3 blocks start at match position 27
 func (stats *ClientStats) parseSMBBlocks(file string) {
+	log.Printf("File content: %s", file)
 	matches := re.FindAllStringSubmatch(file, -1)
 
 	for _, match := range matches {

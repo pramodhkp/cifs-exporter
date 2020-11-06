@@ -1,13 +1,9 @@
-# Build
-FROM golang:latest AS build
+FROM golang:latest
 WORKDIR /go/src/cifs-exporter
 COPY . .
 RUN go get -d -v ./...
-RUN go install -v ./...
+RUN go build
 
-# Release
-FROM scratch AS release
-COPY --from=build /go/src/cifs-exporter /usr/local/bin/cifs-exporter
-USER 9999:9999
-EXPOSE 9695
+RUN cp cifs-exporter /usr/local/bin/cifs-exporter
+EXPOSE 9965
 ENTRYPOINT ["/usr/local/bin/cifs-exporter"]
